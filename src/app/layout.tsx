@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../styles/normalize.css";
 import { Inter } from "next/font/google";
 import { RootStyleRegistry, StyledComponentsRegistry } from "@/lib";
 
