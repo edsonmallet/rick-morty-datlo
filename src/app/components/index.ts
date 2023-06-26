@@ -1,4 +1,4 @@
 export * from "./SearchBar";
 export * from "./TopBar";
-export * from "./CardPerson";
+export * from "./CardCharacters";
 export * from "./Paginate";

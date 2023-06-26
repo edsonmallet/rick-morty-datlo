@@ -7,5 +7,6 @@ export const Container = styles.div`
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-image:linear-gradient(#bfde42,#fff);
+    margin-bottom: 20px;
+    background-image:linear-gradient(to right, #bfde42, #03aec8);
     `;
