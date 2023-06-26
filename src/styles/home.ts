@@ -5,7 +5,9 @@ export const BaseStyle = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 30 0px;
+  margin: 30px;
+  padding: 0px;
+  box-sizing: border-box;
   gap: 20px;
 `;
 

@@ -27,7 +27,7 @@ export const SearchBar: React.FC = () => {
         placeholder="Busque seu personagem favorito"
         onSearch={handleSearch}
         size={"large"}
-        style={{ width: 400 }}
+        style={{ maxWidth: 500 }}
         defaultValue={filter}
         enterButton
       />

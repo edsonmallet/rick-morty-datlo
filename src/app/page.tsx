@@ -35,12 +35,11 @@ export default function Home() {
   return (
     <S.BaseStyle>
       <SearchBar />
-      {isLoading && <Spin size="large" />}
       <S.ListCharacters>
         {characters
           ?.filter((item: Character) => !removed.includes(item?.id))
           ?.map((item: Character) => (
-            <CardCharacters key={item?.id} {...item} />
+            <CardCharacters isLoading={isLoading} key={item?.id} {...item} />
           ))}
       </S.ListCharacters>
       <Paginate />

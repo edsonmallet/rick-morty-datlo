@@ -6,15 +6,17 @@ import {
   ExclamationCircleOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import { Card, Image, Modal } from "antd";
+import { Card, Image, Modal, Skeleton } from "antd";
 import { useAtom } from "jotai";
 import React from "react";
 
 const { Meta } = Card;
 
-interface ICardCharacters extends Character {}
+interface ICardCharacters extends Character {
+  isLoading: boolean;
+}
 
-export const CardCharacters: React.FC<ICardCharacters> = (props) => {
+export const CardCharacters: React.FC<ICardCharacters> = ({ ...props }) => {
   const [modal, contextHolder] = Modal.useModal();
 
   const [, setRemoved] = useAtom(itemsRemoved);
@@ -24,8 +26,7 @@ export const CardCharacters: React.FC<ICardCharacters> = (props) => {
       title: "Confirmar exclusão",
       icon: <ExclamationCircleOutlined />,
       centered: true,
-      content:
-        "Você tem certeza que deseja excluir este registro? essa ação não poderá ser desfeita.",
+      content: "Você tem certeza que deseja excluir este registro?",
       okText: "SIM",
       cancelText: "NÃO",
       onOk() {
@@ -37,12 +38,22 @@ export const CardCharacters: React.FC<ICardCharacters> = (props) => {
   return (
     <>
       <Card
+        loading={props?.isLoading}
         hoverable
         style={{ width: 240 }}
-        cover={<Image alt="example" src={props?.image} />}
+        cover={
+          props?.isLoading ? (
+            <Skeleton.Image
+              active={props?.isLoading}
+              style={{ width: 240, height: 240 }}
+            />
+          ) : (
+            <Image alt="example" src={props?.image} />
+          )
+        }
         actions={[
           <EyeOutlined key="setting" />,
-          <DeleteOutlined key="delete" onClick={confirm} />,
+          <DeleteOutlined key="delete" onClick={confirm} color="red" />,
         ]}
       >
         <Meta title={props?.name} description={props?.gender + props?.status} />
