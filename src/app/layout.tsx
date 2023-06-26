@@ -1,10 +1,10 @@
 import "../styles/normalize.css";
-import { Inter } from "next/font/google";
 import { RootStyleRegistry, StyledComponentsRegistry } from "@/lib";
 import { TopBar } from "./components";
 import { Providers } from "./utils";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Ricky and Morty | Datlo Teste",
@@ -18,11 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>
+      <body className={font.className}>
         <StyledComponentsRegistry>
           <RootStyleRegistry>
             <Providers>
               <TopBar />
+
               {children}
             </Providers>
           </RootStyleRegistry>

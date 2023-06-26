@@ -31,6 +31,7 @@ export const getCharacters = gql`
         prev
       }
       results {
+        id
         name
         gender
         image

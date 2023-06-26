@@ -1,37 +1,28 @@
 "use client";
-
-import { styled } from "styled-components";
-import { CardCharacters, Paginate } from "./components";
+import { CardCharacters, Paginate, SearchBar } from "./components";
 import { useQuery } from "@tanstack/react-query";
 import { fetchData, getCharacters } from "./services";
 import React from "react";
+import { atom, useAtom } from "jotai";
 
-const BaseStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 30 0px;
-  gap: 20px;
-`;
+import * as S from "@/styles/home";
+import { Spin } from "antd";
+import { Character } from "@/types";
 
-const ListCharacters = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-`;
+export const currentPage = atom(1);
+export const currentFilter = atom("");
 
 export default function Home() {
+  const [page] = useAtom(currentPage);
+  const [filter] = useAtom(currentFilter);
+
   const [characters, setCharacters] = React.useState([]);
 
   const { isLoading } = useQuery({
-    queryKey: ["get-characters"],
-    queryFn: () => fetchData({ query: getCharacters, page: 1, search: "" }),
+    queryKey: ["get-characters", page, filter],
+    queryFn: () =>
+      fetchData({ query: getCharacters, page: page, search: filter }),
     onSuccess: (data: any) => {
-      console.log(data);
       setCharacters(data.characters.results);
     },
     onError: (error: any) => {
@@ -39,18 +30,16 @@ export default function Home() {
     },
   });
 
-  React.useEffect(() => {
-    console.log(characters);
-  }, [characters]);
-
   return (
-    <BaseStyle>
+    <S.BaseStyle>
+      <SearchBar />
       <Paginate />
-      <ListCharacters>
-        {characters?.map((item: any) => (
-          <CardCharacters key={item?.name} {...item} />
+      {isLoading && <Spin size="large" />}
+      <S.ListCharacters>
+        {characters?.map((item: Character) => (
+          <CardCharacters key={item?.id} {...item} />
         ))}
-      </ListCharacters>
-    </BaseStyle>
+      </S.ListCharacters>
+    </S.BaseStyle>
   );
 }
