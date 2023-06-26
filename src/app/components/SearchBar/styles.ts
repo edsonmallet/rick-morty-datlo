@@ -19,3 +19,7 @@ export const ListAlphabetic = styles.ul`
     gap: 16px;
     list-style: none;
 `;
+
+export const ItemAlphabetic = styles.li`
+    cursor: pointer;
+`;

@@ -32,7 +32,9 @@ export const SearchBar: React.FC = () => {
       />
       <S.ListAlphabetic>
         {alphabet?.split("")?.map((item) => (
-          <li key={item}>{item}</li>
+          <S.ItemAlphabetic key={item} onClick={() => handleSearch(item)}>
+            {item}
+          </S.ItemAlphabetic>
         ))}
       </S.ListAlphabetic>
     </S.Container>
