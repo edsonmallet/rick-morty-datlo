@@ -1,6 +1,7 @@
 import "../styles/normalize.css";
 import { Inter } from "next/font/google";
 import { RootStyleRegistry, StyledComponentsRegistry } from "@/lib";
+import { TopBar } from "./components";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,10 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <RootStyleRegistry>{children}</RootStyleRegistry>
+          <RootStyleRegistry>
+            <TopBar />
+            {children}
+          </RootStyleRegistry>
         </StyledComponentsRegistry>
       </body>
     </html>

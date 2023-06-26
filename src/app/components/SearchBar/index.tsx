@@ -1,24 +1,56 @@
+"use client";
 import React from "react";
 
+import * as S from "./styles";
+import { Input } from "antd";
+
 interface SearchProps {
-  setSearch: (search: string) => void;
-  updatePageNumber: (pageNumber: number) => void;
+  setSearch?: (search: string) => void;
+  updatePageNumber?: (pageNumber: number) => void;
 }
 
 export const SearchBar: React.FC<SearchProps> = ({
   setSearch,
   updatePageNumber,
 }) => {
+  const { Search } = Input;
   return (
-    <form>
-      <input
-        onChange={(e) => {
-          updatePageNumber(1);
-          setSearch(e.target.value);
-        }}
-        placeholder="Busque por nome, descrição ou tags"
-        type="text"
+    <>
+      <Search
+        placeholder="Busque seu personagem favorito"
+        onSearch={setSearch}
+        style={{ width: 400 }}
+        size={"large"}
+        enterButton
       />
-    </form>
+      <S.ListAlphabetic>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+        <li>F</li>
+        <li>G</li>
+        <li>H</li>
+        <li>I</li>
+        <li>J</li>
+        <li>K</li>
+        <li>L</li>
+        <li>M</li>
+        <li>N</li>
+        <li>O</li>
+        <li>P</li>
+        <li>Q</li>
+        <li>R</li>
+        <li>S</li>
+        <li>T</li>
+        <li>U</li>
+        <li>V</li>
+        <li>W</li>
+        <li>X</li>
+        <li>Y</li>
+        <li>Z</li>
+      </S.ListAlphabetic>
+    </>
   );
 };
