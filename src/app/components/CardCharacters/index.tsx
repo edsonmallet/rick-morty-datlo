@@ -5,7 +5,7 @@ import {
   ExclamationCircleOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import { Card, Modal } from "antd";
+import { Card, Image, Modal } from "antd";
 import React from "react";
 
 const { Meta } = Card;
@@ -38,13 +38,13 @@ export const CardCharacters: React.FC<ICardCharacters> = (props) => {
       <Card
         hoverable
         style={{ width: 240 }}
-        cover={<img alt="example" src={props?.image} />}
+        cover={<Image alt="example" src={props?.image} />}
         actions={[
           <EyeOutlined key="setting" />,
           <DeleteOutlined key="delete" onClick={confirm} />,
         ]}
       >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
+        <Meta title={props?.name} description={props?.gender + props?.status} />
       </Card>
       {contextHolder}
     </>
