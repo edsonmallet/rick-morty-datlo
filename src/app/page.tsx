@@ -1,10 +1,20 @@
 "use client";
 
+import { styled } from "styled-components";
+import { CardPerson } from "./components";
+
+const BaseStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 30px;
+`;
+
 export default function Home() {
   return (
-    <p>
-      Get started by editing&nbsp;
-      <code>src/app/page.tsx</code>
-    </p>
+    <BaseStyle>
+      <CardPerson />
+    </BaseStyle>
   );
 }

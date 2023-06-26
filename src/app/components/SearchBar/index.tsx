@@ -9,11 +9,12 @@ interface SearchProps {
   updatePageNumber?: (pageNumber: number) => void;
 }
 
+const { Search } = Input;
+
 export const SearchBar: React.FC<SearchProps> = ({
   setSearch,
   updatePageNumber,
 }) => {
-  const { Search } = Input;
   return (
     <>
       <Search
