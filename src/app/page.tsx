@@ -1,20 +1,19 @@
 "use client";
-import { CardCharacters, Paginate, SearchBar } from "./components";
+import { CardCharacters, Paginate, SearchBar } from "../components";
 import { useQuery } from "@tanstack/react-query";
-import { fetchData, getCharacters } from "./services";
+import { fetchData, getCharacters } from "../services";
 import React from "react";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 
 import * as S from "@/styles/home";
 import { Spin } from "antd";
 import { Character } from "@/types";
-
-export const currentPage = atom(1);
-export const currentFilter = atom("");
-export const itemsRemoved = atom<number[]>([]);
+import { currentPage, totalPages } from "@/atoms/pagination";
+import { currentFilter, itemsRemoved } from "@/atoms/filter";
 
 export default function Home() {
   const [page] = useAtom(currentPage);
+  const [total, setTotal] = useAtom(totalPages);
   const [filter] = useAtom(currentFilter);
   const [removed] = useAtom(itemsRemoved);
 
@@ -26,6 +25,7 @@ export default function Home() {
       fetchData({ query: getCharacters, page: page, search: filter }),
     onSuccess: (data: any) => {
       setCharacters(data.characters.results);
+      setTotal(data.characters.info.count);
     },
     onError: (error: any) => {
       console.log(error);
@@ -35,7 +35,6 @@ export default function Home() {
   return (
     <S.BaseStyle>
       <SearchBar />
-      <Paginate />
       {isLoading && <Spin size="large" />}
       <S.ListCharacters>
         {characters
@@ -44,6 +43,7 @@ export default function Home() {
             <CardCharacters key={item?.id} {...item} />
           ))}
       </S.ListCharacters>
+      <Paginate />
     </S.BaseStyle>
   );
 }

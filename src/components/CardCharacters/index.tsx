@@ -1,5 +1,5 @@
 "use client";
-import { itemsRemoved } from "@/app/page";
+import { itemsRemoved } from "@/atoms/filter";
 import { Character } from "@/types";
 import {
   DeleteOutlined,

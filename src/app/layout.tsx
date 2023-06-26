@@ -1,7 +1,7 @@
 import "../styles/normalize.css";
 import { RootStyleRegistry, StyledComponentsRegistry } from "@/lib";
-import { TopBar } from "./components";
-import { Providers } from "./utils";
+import { TopBar } from "../components";
+import { Providers } from "../utils";
 import { Inter } from "next/font/google";
 
 const font = Inter({ subsets: ["latin"] });

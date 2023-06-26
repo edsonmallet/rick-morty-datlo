@@ -3,15 +3,15 @@ import React from "react";
 
 import * as S from "./styles";
 import { Input } from "antd";
-import { currentFilter, currentPage } from "@/app/page";
 import { useAtom } from "jotai";
+import { currentPage } from "@/atoms/pagination";
+import { currentFilter } from "@/atoms/filter";
 
 const { Search } = Input;
 
 export const SearchBar: React.FC = () => {
   const [, setPage] = useAtom(currentPage);
-  const [, setFilter] = useAtom(currentFilter);
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const [filter, setFilter] = useAtom(currentFilter);
 
   const handleSearch = React.useCallback(
     (value: string) => {
@@ -28,15 +28,9 @@ export const SearchBar: React.FC = () => {
         onSearch={handleSearch}
         size={"large"}
         style={{ width: 400 }}
+        defaultValue={filter}
         enterButton
       />
-      <S.ListAlphabetic>
-        {alphabet?.split("")?.map((item) => (
-          <S.ItemAlphabetic key={item} onClick={() => handleSearch(item)}>
-            {item}
-          </S.ItemAlphabetic>
-        ))}
-      </S.ListAlphabetic>
     </S.Container>
   );
 };
