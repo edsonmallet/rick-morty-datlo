@@ -11,10 +11,12 @@ import { Character } from "@/types";
 
 export const currentPage = atom(1);
 export const currentFilter = atom("");
+export const itemsRemoved = atom<number[]>([]);
 
 export default function Home() {
   const [page] = useAtom(currentPage);
   const [filter] = useAtom(currentFilter);
+  const [removed] = useAtom(itemsRemoved);
 
   const [characters, setCharacters] = React.useState([]);
 
@@ -36,9 +38,11 @@ export default function Home() {
       <Paginate />
       {isLoading && <Spin size="large" />}
       <S.ListCharacters>
-        {characters?.map((item: Character) => (
-          <CardCharacters key={item?.id} {...item} />
-        ))}
+        {characters
+          ?.filter((item: Character) => !removed.includes(item?.id))
+          ?.map((item: Character) => (
+            <CardCharacters key={item?.id} {...item} />
+          ))}
       </S.ListCharacters>
     </S.BaseStyle>
   );

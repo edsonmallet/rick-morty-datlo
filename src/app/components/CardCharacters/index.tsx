@@ -1,4 +1,5 @@
 "use client";
+import { itemsRemoved } from "@/app/page";
 import { Character } from "@/types";
 import {
   DeleteOutlined,
@@ -6,6 +7,7 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import { Card, Image, Modal } from "antd";
+import { useAtom } from "jotai";
 import React from "react";
 
 const { Meta } = Card;
@@ -14,6 +16,8 @@ interface ICardCharacters extends Character {}
 
 export const CardCharacters: React.FC<ICardCharacters> = (props) => {
   const [modal, contextHolder] = Modal.useModal();
+
+  const [, setRemoved] = useAtom(itemsRemoved);
 
   const confirm = () => {
     modal.confirm({
@@ -25,10 +29,7 @@ export const CardCharacters: React.FC<ICardCharacters> = (props) => {
       okText: "SIM",
       cancelText: "NÃO",
       onOk() {
-        console.log("ok");
-      },
-      onCancel() {
-        console.log("cancel");
+        setRemoved((prev) => [...prev, props?.id]);
       },
     });
   };
