@@ -3,3 +3,4 @@ export * from "./TopBar";
 export * from "./CardCharacters";
 export * from "./Paginate";
 export * from "./DetailsCharacter";
+export * from "./ListRemoveds";

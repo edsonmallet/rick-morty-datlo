@@ -6,6 +6,7 @@ import { Input } from "antd";
 import { useAtom } from "jotai";
 import { currentPage } from "@/atoms/pagination";
 import { currentFilter } from "@/atoms/filter";
+import { ListRemoveds } from "../ListRemoveds";
 
 const { Search } = Input;
 
@@ -31,6 +32,7 @@ export const SearchBar: React.FC = () => {
         defaultValue={filter}
         enterButton
       />
+      <ListRemoveds />
     </S.Container>
   );
 };

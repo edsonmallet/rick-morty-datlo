@@ -31,7 +31,7 @@ export const CardCharacters: React.FC<ICardCharacters> = (props) => {
       okText: "SIM",
       cancelText: "NÃO",
       onOk() {
-        setRemoved((prev) => [...prev, props?.id]);
+        setRemoved((prev) => [...prev, props]);
       },
     });
   };

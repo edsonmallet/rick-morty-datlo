@@ -37,6 +37,8 @@ export default function Home() {
     },
   });
 
+  const idRemoveds = removed.map((item: Character) => item?.id);
+
   return (
     <S.BaseStyle>
       {isLoading && characters.length === 0 && (
@@ -46,9 +48,10 @@ export default function Home() {
         <>
           <DetailsCharacter />
           <SearchBar />
+
           <S.ListCharacters>
             {characters
-              ?.filter((item: Character) => !removed.includes(item?.id))
+              ?.filter((item: Character) => !idRemoveds.includes(item?.id))
               ?.map((item: Character) => (
                 <CardCharacters
                   isLoading={isLoading}
