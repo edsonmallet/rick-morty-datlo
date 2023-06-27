@@ -37,7 +37,7 @@ export const ListRemoveds: React.FC = () => {
         </Button>
       </S.ContainerRemoveds>
     ));
-  }, [removed]);
+  }, [removed, handleRestore]);
 
   return (
     <>
