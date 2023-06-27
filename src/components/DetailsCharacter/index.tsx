@@ -22,7 +22,7 @@ export const DetailsCharacter: React.FC = () => {
         search: detailId,
       }),
     enabled: !!detailId,
-    onSuccess: (data: any) => {
+    onSuccess: (data: { character: Character }) => {
       setCharacter(data.character);
     },
   });

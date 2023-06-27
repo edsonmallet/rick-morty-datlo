@@ -12,7 +12,7 @@ import { useAtom } from "jotai";
 
 import * as S from "@/styles/home";
 import { Spin } from "antd";
-import { Character } from "@/types";
+import { Character, CharacterResponse } from "@/types";
 import { currentPage, totalPages } from "@/atoms/pagination";
 import { currentFilter, itemsRemoved } from "@/atoms/filter";
 
@@ -22,17 +22,17 @@ export default function Home() {
   const [filter] = useAtom(currentFilter);
   const [removed] = useAtom(itemsRemoved);
 
-  const [characters, setCharacters] = React.useState([]);
+  const [characters, setCharacters] = React.useState<Character[]>([]);
 
   const { isLoading } = useQuery({
     queryKey: ["get-characters", page, filter],
     queryFn: () =>
       fetchData({ query: getCharacters, page: page, search: filter }),
-    onSuccess: (data: any) => {
+    onSuccess: (data: { characters: CharacterResponse }) => {
       setCharacters(data.characters.results);
       setTotal(data.characters.info.count);
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       console.log(error);
     },
   });
