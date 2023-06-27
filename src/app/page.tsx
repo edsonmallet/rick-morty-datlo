@@ -1,5 +1,10 @@
 "use client";
-import { CardCharacters, Paginate, SearchBar } from "../components";
+import {
+  CardCharacters,
+  DetailsCharacter,
+  Paginate,
+  SearchBar,
+} from "../components";
 import { useQuery } from "@tanstack/react-query";
 import { fetchData, getCharacters } from "../services";
 import React from "react";
@@ -34,15 +39,27 @@ export default function Home() {
 
   return (
     <S.BaseStyle>
-      <SearchBar />
-      <S.ListCharacters>
-        {characters
-          ?.filter((item: Character) => !removed.includes(item?.id))
-          ?.map((item: Character) => (
-            <CardCharacters isLoading={isLoading} key={item?.id} {...item} />
-          ))}
-      </S.ListCharacters>
-      <Paginate />
+      {isLoading && characters.length === 0 && (
+        <Spin tip="Loading" size="large" />
+      )}
+      {characters.length > 0 && (
+        <>
+          <DetailsCharacter />
+          <SearchBar />
+          <S.ListCharacters>
+            {characters
+              ?.filter((item: Character) => !removed.includes(item?.id))
+              ?.map((item: Character) => (
+                <CardCharacters
+                  isLoading={isLoading}
+                  key={item?.id}
+                  {...item}
+                />
+              ))}
+          </S.ListCharacters>
+          <Paginate />
+        </>
+      )}
     </S.BaseStyle>
   );
 }

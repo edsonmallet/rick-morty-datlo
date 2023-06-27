@@ -1,28 +1,29 @@
 "use client";
-import { itemsRemoved } from "@/atoms/filter";
+import { itemsRemoved, viewDetailsId } from "@/atoms/filter";
 import { Character } from "@/types";
 import {
   DeleteOutlined,
   ExclamationCircleOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import { Card, Image, Modal, Skeleton } from "antd";
+import { Card, Image, Modal, Skeleton, Tag } from "antd";
 import { useAtom } from "jotai";
 import React from "react";
 
-const { Meta } = Card;
+import * as S from "./styles";
 
 interface ICardCharacters extends Character {
   isLoading: boolean;
 }
 
-export const CardCharacters: React.FC<ICardCharacters> = ({ ...props }) => {
-  const [modal, contextHolder] = Modal.useModal();
+export const CardCharacters: React.FC<ICardCharacters> = (props) => {
+  const [modalConfirm, contextHolderConfirm] = Modal.useModal();
 
   const [, setRemoved] = useAtom(itemsRemoved);
+  const [, setViewDetails] = useAtom(viewDetailsId);
 
   const confirm = () => {
-    modal.confirm({
+    modalConfirm.confirm({
       title: "Confirmar exclusão",
       icon: <ExclamationCircleOutlined />,
       centered: true,
@@ -34,6 +35,8 @@ export const CardCharacters: React.FC<ICardCharacters> = ({ ...props }) => {
       },
     });
   };
+
+  const colorStatus = props?.status === "Alive" ? "green" : "red";
 
   return (
     <>
@@ -52,13 +55,28 @@ export const CardCharacters: React.FC<ICardCharacters> = ({ ...props }) => {
           )
         }
         actions={[
-          <EyeOutlined key="setting" />,
-          <DeleteOutlined key="delete" onClick={confirm} color="red" />,
+          <EyeOutlined
+            key="setting"
+            onClick={() => setViewDetails(props?.id)}
+          />,
+          <DeleteOutlined
+            key="delete"
+            onClick={confirm}
+            style={{ color: "red" }}
+          />,
         ]}
+        bodyStyle={{ padding: "8px" }}
       >
-        <Meta title={props?.name} description={props?.gender + props?.status} />
+        <S.Container>
+          <h4>{props?.name}</h4>
+          <S.ListTags>
+            <Tag color={colorStatus}>{props?.status}</Tag>
+            <Tag color="default">{props?.species}</Tag>
+            <Tag color="default">{props?.gender}</Tag>
+          </S.ListTags>
+        </S.Container>
       </Card>
-      {contextHolder}
+      {contextHolderConfirm}
     </>
   );
 };

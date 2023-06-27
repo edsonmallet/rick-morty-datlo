@@ -4,21 +4,21 @@ const graphQLClient = new GraphQLClient("https://rickandmortyapi.com/graphql", {
   errorPolicy: "all",
 });
 
-type FetchDataProps = {
+type FetchDataProps<T> = {
   query: string;
-  page: number;
-  search?: string;
+  page?: number;
+  search?: string | number | null;
 };
 
-export const fetchData = async ({
+export const fetchData = async <T>({
   query,
   page = 1,
   search,
-}: FetchDataProps) => {
+}: FetchDataProps<T>) => {
   const variables = { page, search };
   if (!search) delete variables?.search;
 
-  return await graphQLClient.request(query, variables);
+  return await graphQLClient.request<T>(query, variables);
 };
 
 export const getCharacters = gql`
@@ -26,9 +26,6 @@ export const getCharacters = gql`
     characters(page: $page, filter: { name: $search }) {
       info {
         count
-        pages
-        next
-        prev
       }
       results {
         id
@@ -36,6 +33,37 @@ export const getCharacters = gql`
         gender
         image
         status
+        species
+      }
+    }
+  }
+`;
+
+export const getCharacterById = gql`
+  query getCharacterById($search: ID!) {
+    character(id: $search) {
+      id
+      name
+      status
+      species
+      type
+      gender
+      origin {
+        id
+        name
+        type
+        dimension
+      }
+      location {
+        name
+        type
+        dimension
+      }
+      image
+      episode {
+        name
+        air_date
+        episode
       }
     }
   }

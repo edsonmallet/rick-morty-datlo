@@ -23,6 +23,7 @@ export const Paginate: React.FC = () => {
         current={page}
         showTotal={(total) => `Total ${total} items`}
         total={total}
+        pageSize={20}
         onChange={onChange}
       />
     </>
